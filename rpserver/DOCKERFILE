@@ -1,0 +1,16 @@
+FROM python:3.7-alpine
+
+MAINTAINER Edward Hubbard
+
+COPY . /app
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN pip install -r requirements.txt
+
+EXPOSE 1883
+
+ENTRYPOINT ["python"]
+CMD ["client.py"]

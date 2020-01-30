@@ -1,0 +1,14 @@
+version: '3'
+services:
+  frontend:
+    build: recipeek
+    image: recipeek_react
+    ports: 
+    - '3000:3000'
+  backend:
+    build: rpbackend
+    image: recipeek_django
+    ports:
+    - '8000:8000'
+
+    
