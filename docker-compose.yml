@@ -6,7 +6,7 @@ services:
     ports: 
     - '3000:3000'
   backend:
-    build: rpbackend
+    build: rpserver
     image: recipeek_django
     ports:
     - '8000:8000'
