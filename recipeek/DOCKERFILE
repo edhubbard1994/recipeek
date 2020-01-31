@@ -6,5 +6,5 @@ RUN npm i
 
 EXPOSE 3000
 
-ENTRYPOINT ["node"]
-CMD ["app.js"]
+ENTRYPOINT ["npm"]
+CMD ["start"]
