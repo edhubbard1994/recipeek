@@ -19,5 +19,6 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('recipeek.urls')),
     url(r'^api-auth/', include('rest_framework.urls')),
 ]
