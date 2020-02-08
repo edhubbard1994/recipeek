@@ -4,7 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 # Create your models here.
 
 
-class Recipe(models.Model):
+class RecipeModel(models.Model):
     name = models.CharField(max_length=120)
     meal = models.CharField(max_length=30, choices=(('breakfast','breakfast'),('lunch','lunch'),
         ('dinner','dinner'),('brunch','brunch'),('snack','snack'),('dessert','dessert'),('other','other')),default='other') 
