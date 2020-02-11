@@ -10,6 +10,7 @@ services:
   backend:
     build: rpserver
     image: recipeek_django
+    hostname: backend
     ports:
     - '8000:8000'
     depends_on:
@@ -20,5 +21,7 @@ services:
       - "5432:5432"
 networks: 
   default:
+    external: 
+      name: 'recipeek'
 
     
