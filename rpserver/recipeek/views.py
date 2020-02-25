@@ -9,13 +9,22 @@ from rest_framework.permissions import AllowAny
 
 from .models import RecipeModel
 from .serializers import RecipeSerializer
+from .search import search
 
+import json
 # Create your views here.
 
 #just a test view to see if this thing works
 @api_view(['GET'])
 def hello_world(request):
     return Response({"message": "Hello, world!"})
+
+@api_view(['POST'])
+def searchRequest(request):
+    serialized = request.data
+    search(serialized['keywords'])
+    return Response({"Implement":"At some point"})
+    
 
 class RecipeView(ModelViewSet):
   
