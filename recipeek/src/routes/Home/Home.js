@@ -6,8 +6,9 @@ export default class Home extends Component {
         return (
             <div>
                 <h1>Recipeek</h1>
+                {/* TODO center searchbar */}
                 <Searchbar
-                  label = 'Search'
+                  label = 'Find your feast...'
                   onClick = {() => {alert('Button Clicked')}}
                   searchInput = ''
                   onChange = { () => {alert('onChange')} }
