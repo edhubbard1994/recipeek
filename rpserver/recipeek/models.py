@@ -3,26 +3,6 @@ from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
-class Recipe(models.Model):
-    id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=120)
-    image_url = models.URLField()
-    recipe_url = models.URLField()
-    calories = models.IntegerField(default=0)
-    cuisine = models.ManytoManyField(Cuisine)
-    diet = models.ManytoManyField(Diet, through='RecipeIngredient')
-    user = models.ManytoManyField(User, through='UserRecipe')
-
-    def __str__(self):
-        return self.title
-
-class RecipeIngredient(models.Model):
-    id = models.AutoField(primary_key=True)
-    amount = models.FloatField()
-    unit = models.CharField(max_length=36)
-    recipe = models.ForeignKey(Recipe)
-    ingredient = models.ForeignKey(Ingredient)
-
 class Ingredient(models.Model):
     name = models.CharField(max_length=200, primary_key=True)
 
@@ -47,8 +27,30 @@ class User(models.Model):
     def __str__(self):
         return self.email
 
+class Recipe(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=120)
+    image_url = models.URLField()
+    recipe_url = models.URLField()
+    calories = models.IntegerField(default=0)
+    cuisine = models.ManyToManyField(Cuisine)
+    diet = models.ManyToManyField(Diet, through='RecipeIngredient')
+    user = models.ManyToManyField(User, through='UserRecipe')
+
+    def __str__(self):
+        return self.title
+
+class RecipeIngredient(models.Model):
+    id = models.AutoField(primary_key=True)
+    amount = models.FloatField()
+    unit = models.CharField(max_length=36)
+    recipe = models.ForeignKey(Recipe, on_delete=models.DO_NOTHING)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.DO_NOTHING)
+    diet = models.ForeignKey(Diet, on_delete=models.DO_NOTHING)
+
 class UserRecipe(models.Model):
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User)
-    recipe = models.ForeignKey(Recipe)
-    isFavorite = models.BooleanField(default = false)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    recipe = models.ForeignKey(Recipe, on_delete=models.DO_NOTHING)
+    isFavorite = models.BooleanField(default = False)
+

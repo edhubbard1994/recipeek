@@ -6,9 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 
-
-from .models import RecipeModel
-from .serializers import RecipeSerializer
+#from .serializers import RecipeSerializer
 from .search import search
 
 import json
@@ -25,13 +23,13 @@ def searchRequest(request):
     search(serialized['keywords'])
     return Response({"Implement":"At some point"})
     
-
+'''
 class RecipeView(ModelViewSet):
   
     queryset = RecipeModel.objects.all()
     serializer_class = RecipeSerializer
     permission_classes = [AllowAny]
-
+'''
 
 
 
