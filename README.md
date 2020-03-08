@@ -1,6 +1,6 @@
 <h1>RECIPEEK</h1>
 
-###What is Recipeek?
+##What is Recipeek?
 
 This application aims to collect data on recipes from all across the internet and make them searchable in one open source place. This we hope can lay the groundwork for interesting datamining applications... its also the final project for our advanced algorithms class so please don't judge our "semester project" quality code.
 
