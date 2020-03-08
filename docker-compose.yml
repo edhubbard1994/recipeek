@@ -13,15 +13,15 @@ services:
     hostname: backend
     ports:
     - '8000:8000'
-    depends_on:
-      - db
-  db:
-    image: postgres
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_DB: "db"
-      POSTGRES_HOST_AUTH_METHOD: "trust"
+    #depends_on:
+     # - db
+ # db:
+  #  image: postgres
+   # ports:
+    #  - "5432:5432"
+    #environment:
+     # POSTGRES_DB: "db"
+      #POSTGRES_HOST_AUTH_METHOD: "trust"
 networks: 
   default:
     external: 

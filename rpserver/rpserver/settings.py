@@ -89,11 +89,12 @@ WSGI_APPLICATION = 'rpserver.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',                      
-        'USER': 'postgres',
-        'PASSWORD':'secret',
-        'HOST': 'db',
+        'NAME': 'oqniadrl',                      
+        'USER': 'oqniadrl',
+        'PASSWORD':'3Jy-Ucysf06f-JNCurJ02HYukF6pry_9',
+        'HOST': 'drona.db.elephantsql.com',
         'PORT': '5432', 
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 
