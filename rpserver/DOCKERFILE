@@ -1,24 +1,32 @@
 FROM python:3.7-alpine
-COPY docker-entrypoint.sh /
-COPY . /app
-WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apk update && \
     apk add --virtual build-deps gcc python-dev musl-dev && \
-    apk add postgresql-dev
+    apk add postgresql-dev \
+    && apk add libressl-dev \
+    && apk add openssl-dev \
+    && apk add tcpdump \
+    && apk add libffi-dev \
+    && apk add libxml2-dev \
+    && apk add libxslt-dev 
+
+COPY docker-entrypoint.sh /
+
+RUN mkdir /app
+COPY requirements.txt /app
+WORKDIR /app
 
 RUN pip install -r requirements.txt
-RUN chmod +x docker-entrypoint.sh
 
-#RUN python manage.py makemigrations
+COPY . /app
 
 EXPOSE 8000
 
 WORKDIR /
-#ENTRYPOINT [ "/bin/sh" ]
+
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
-#ENTRYPOINT ["python"]
-#CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+
