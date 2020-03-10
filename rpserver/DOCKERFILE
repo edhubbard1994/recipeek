@@ -5,13 +5,13 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apk update && \
     apk add --virtual build-deps gcc python-dev musl-dev && \
-    apk add postgresql-dev \
-    && apk add libressl-dev \
-    && apk add openssl-dev \
-    && apk add tcpdump \
-    && apk add libffi-dev \
-    && apk add libxml2-dev \
-    && apk add libxslt-dev 
+    apk add postgresql-dev 
+#    && apk add libressl-dev \
+#    && apk add openssl-dev \
+#    && apk add tcpdump \
+#    && apk add libffi-dev \
+#    && apk add libxml2-dev \
+#    && apk add libxslt-dev 
 
 COPY docker-entrypoint.sh /
 
