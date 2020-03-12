@@ -1,5 +1,9 @@
 <h1>RECIPEEK</h1>
 
+<h3>What is Recipeek?</h3>
+
+This application aims to collect data on recipes from all across the internet and make them searchable in one open source place. This we hope can lay the groundwork for interesting datamining applications... its also the final project for our advanced algorithms class so please don't judge our "semester project" quality code.
+
 <h3>Setup</h3>
 <li>Pull source
 <li>Download Docker Desktop at https://docker.com/

@@ -15,7 +15,6 @@ class App extends React.Component {
   }
 
   getData = ()=>{
-
     //TODO: MAKE THIS WORK WITH DNS RESOLUTION
     fetch('http://localhost:8000/api/recipe')
       .then(response => response.json())
