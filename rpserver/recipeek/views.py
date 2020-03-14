@@ -42,7 +42,7 @@ def hello_world(request):
 def searchRequest(request):
     serialized = request.data
     search(serialized['keywords'])
-    return Response({"Implement":"At some point"})
+    return Response({"Implement" : "At some point"})
     
 '''
 class RecipeView(ModelViewSet):
