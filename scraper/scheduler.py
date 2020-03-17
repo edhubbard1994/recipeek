@@ -1,15 +1,12 @@
 import signal
 import sys
 import datetime
-
-
-class Scheduler:
-
-    def __init__(self):
-        self.
+import schedule
+import scrape
 
 
 def docker_shutdown():
+    #add any additional cleanup here
     sys.exit()
 
 def main():
