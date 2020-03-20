@@ -1,5 +1,12 @@
 @value colors: "../../styles/styles/colors.css";
 @value silverSand, apple from colors;
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Pacifico|Roboto&display=swap');
+/* Use the following CSS rules to specify these families:
+
+    font-family: 'Pacifico', cursive;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+ */
 
 .searchbar {
     display: flex;
@@ -17,6 +24,7 @@
     background-color: silverSand;
     color: rgba(255, 255, 255, 0.6);
     font-size: 1.2rem;
+    font-family: 'Montserrat', sans-serif;
     padding: 0px;
     padding-left: 10px;
     height: 100%;
@@ -27,6 +35,7 @@
 
 .searchbarButton {
     background-color: apple;
+    font-family: 'Montserrat', sans-serif;
     color: rgba(255, 255, 255, 0.6);
     height: 100%;
     width: 15%;
