@@ -6,8 +6,9 @@ import scrape
 
 
 def docker_shutdown():
-    #add any additional cleanup here
+    # add any additional cleanup here
     sys.exit()
+
 
 def main():
     try:
@@ -18,7 +19,6 @@ def main():
 
 
 if __name__ == "__main__":
-
     signal.signal(signal.SIGTERM, docker_shutdown)
     signal.signal(signal.SIGINT, docker_shutdown)
     main()

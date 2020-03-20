@@ -13,9 +13,9 @@ services:
     hostname: backend
     ports:
     - '8000:8000'
-  scrapers:
-    build: scraper
-    image: scrapers
+#  scrapers:
+#    build: scraper
+#    image: scrapers
     
     #depends_on:
      # - db

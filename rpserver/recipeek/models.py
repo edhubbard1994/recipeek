@@ -1,7 +1,8 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
+# from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
+
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=200, primary_key=True)
@@ -28,7 +29,7 @@ class User(models.Model):
         return self.email
 
 class Recipe(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.URLField(primary_key=True)
     title = models.CharField(max_length=120)
     image_url = models.URLField()
     recipe_url = models.URLField()
@@ -36,6 +37,7 @@ class Recipe(models.Model):
     cuisine = models.ManyToManyField(Cuisine)
     diet = models.ManyToManyField(Diet, through='RecipeIngredient')
     user = models.ManyToManyField(User, through='UserRecipe')
+    objects = models.Manager()
 
     def __str__(self):
         return self.title
