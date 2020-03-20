@@ -1,3 +1,10 @@
+@value colors: "../../styles/styles/colors.css";
+@value concrete from colors;
+
+body {
+  background-color: concrete;
+}
+
 .wrapper {
 	display: grid;
 	grid-gap: 10px;
