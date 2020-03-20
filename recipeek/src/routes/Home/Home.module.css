@@ -1,0 +1,16 @@
+.wrapper {
+	display: grid;
+	grid-gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.header {
+  grid-area: 1 / 2 / 2 / 3;
+  display: grid;
+}
+
+.search {
+  grid-area:  2 / 2 / 3 / 3;;
+  display: grid;
+}
