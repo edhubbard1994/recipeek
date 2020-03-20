@@ -1,4 +1,4 @@
-@value colors: "../../styles/colors.css";
+@value colors: "../../styles/styles/colors.css";
 @value silverSand, apple from colors;
 
 .searchbar {
