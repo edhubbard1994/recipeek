@@ -9,7 +9,10 @@ class Ingredient:
         self.amount = amount
         self.unit = unit
         if diet:
-            self.diet = diet        
+            self.diet = diet       
+
+    def __call__(self):
+        return self.__dict__ 
 
 class Recipe:
 
@@ -17,7 +20,7 @@ class Recipe:
         self.title = title
         self.recipe_url = recipe_url
         self.cuisine = cuisine
-        self.ingredients = list(ingredients)
+        self.ingredients = [i() for i in ingredients if type(i) == Ingredient]
         if image_url:
             self.image_url = image_url
         if calories:
@@ -26,5 +29,31 @@ class Recipe:
     def __call__(self):
         return self.__dict__
 
-r = Recipe('soup','soup.com','vegan',['sugar','spice','everything nice'])
+_task_q = []
+
+def scrape_task(func):
+    data = func()
+    if type(data) == Recipe:
+        _task_q.append(data())
+    else:
+        print('WARNING: Task %s does not return correctly formatted data' % str(func))
+
+@scrape_task
+def bad_example():
+    return 'hello'   
+
+@scrape_task
+def example():
+    in1 = Ingredient('sugar','1/2','tbsp')
+    in2 = Ingredient('spice','1/4','tbsp')
+    in3 = Ingredient('everything nice', '1/8','tbsp')
+    r = Recipe('soup','soup.com','vegan',[in1,in2,in3])
+    return r
+
+'''        
+in1 = Ingredient('sugar','1/2','tbsp')
+in2 = Ingredient('spice','1/4','tbsp')
+in3 = Ingredient('everything nice', '1/8','tbsp')
+r = Recipe('soup','soup.com','vegan',[in1,in2,in3])
 print(r())
+'''
