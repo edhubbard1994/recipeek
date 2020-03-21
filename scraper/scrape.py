@@ -23,14 +23,8 @@ class Recipe:
         if calories:
             self.calories = calories
 
-    def to_dict(self):
-        dictionary = {
-            'title' : self.title,
-            'recipe_url' : self.recipe_url,
-            'cuisine' : self.cuisine,
-            'ingredients' : self.ingredients
-        }
+    def __call__(self):
         return self.__dict__
 
 r = Recipe('soup','soup.com','vegan',['sugar','spice','everything nice'])
-print(r.to_dict())
+print(r())
