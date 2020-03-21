@@ -32,15 +32,14 @@ class Recipe:
 _task_q = []
 
 def scrape_task(func):
-    data = func()
-    if type(data) == Recipe:
-        _task_q.append(data())
-    else:
-        print('WARNING: Task %s does not return correctly formatted data' % str(func))
+    _task_q.append(func)
+
+def get_tasks():
+    return _task_q
 
 @scrape_task
 def bad_example():
-    return 'hello'   
+    return ['hello']   
 
 @scrape_task
 def example():
@@ -48,7 +47,7 @@ def example():
     in2 = Ingredient('spice','1/4','tbsp')
     in3 = Ingredient('everything nice', '1/8','tbsp')
     r = Recipe('soup','soup.com','vegan',[in1,in2,in3])
-    return r
+    return [r]
 
 '''        
 in1 = Ingredient('sugar','1/2','tbsp')

@@ -2,25 +2,43 @@ import signal
 import sys
 import datetime
 import schedule
-import scrape
+from scrape import Recipe, get_tasks
+import copy
+import requests
+import json
+import time
+
+task_queue = copy.copy(get_tasks())
 
 
-task_queue = []
-
+def post_scraped_data(data):
+    time.sleep(10)
+    print(data)
+    try:
+        req = requests.post('http://backend:8000/api/import',data=json.dumps(data))
+    except:
+        print('ERROR: request failed')
 
 def run_tasks():
     collected_data = []
     while len(task_queue) > 0:
         task = task_queue.pop()
         data = task()
-        collected_data.extend(data)
-    print(collected_data)
+        protected_data = []
+        for recipe in data:        
+            if not type(recipe) == Recipe:
+                print('WARNING: Task %s does not return correctly formatted data' % str(task))
+            else:
+                protected_data.append(recipe())
+        collected_data.extend(protected_data)
+    post_scraped_data(collected_data)
 
-def docker_shutdown():
+def docker_shutdown(a,b):
     #add any additional cleanup here
     sys.exit()
 
 def main():
+    run_tasks()
     try:
         while True:
             pass
