@@ -1,38 +1,64 @@
 from .models import *
+from collections import OrderedDict
 
-def search(keywords):
-    query_accumulator = []
+def search_recipes_sorted(keywords):
+    final_results_weighted = {}
     for word in keywords:
-        results = lookup(word)
-        if len(results) > 0:
-            query_accumulator = query_accumulator + results
-    return sort(query_accumulator)
+        results = search(word)
+        for recipe in results.items():
+            if recipe in final_results_weighted.items():
+                final_results_weighted[recipe] += results[recipe]
+            else:
+                final_results_weighted[recipe] = results[recipe]
+    return sort(final_results_weighted)
 
 
-def lookup(word):
-    #TODO: database queries to find the word context
-
+def search(word):
     ingredients = Ingredient.objects.get(name=r'.*{re.escape(word)}.*')
     cuisines = Cuisine.objects.get(name=r'.*{re.escape(word)}.*')
     diets = Diet.objects.get(name=r'.*{re.escape(word)}.*')
     recipes = Recipe.objects.get(title=r'.*{re.escape(word)}.*')
 
-    results = set()
+    results = {}
 
-    if (ingredients):
-        ingredients_recipes = Recipe.objects.filter(cuisine=cuisines.name)
-        results.add(set(ingredients_recipes))
-    if (cuisines):
+    #Increments weight of each recipe by a predetermined amount.
+    #Recipe title is weighted higher, and so are multiple matches.
+    if ingredients:
+        ingredients_recipes = Recipe.objects.filter(ingredient=ingredients.name)
+        for rec in ingredients_recipes:
+            if rec in results:
+                results[rec] += 1
+            else:
+                results[rec] = 1
+
+    if cuisines:
         cuisine_recipes = Recipe.objects.filter(cuisine=cuisines.name)
-        results.add(set(cuisine_recipes))
-    if (diets):
+        for rec in cuisine_recipes:
+            if rec in results:
+                results[rec] += 1
+            else:
+                results[rec] = 1
+
+    if diets:
         diet_recipes = Recipe.objects.filter(diet=diets.name)
-        results.add(set(diet_recipes))
-    if (recipes):
-        results.add(recipes)
-    #Remove duplicates
+        for rec in diet_recipes:
+            if rec in results:
+                results[rec] += 1
+            else:
+                results[rec] = 1
+
+    if recipes:
+        for rec in recipes:
+            if rec in results:
+                results[rec] += 2
+            else:
+                results[rec] = 2
+
     return results
 
-def sort(query_accumulator):
-    #Sort here
-    return query_accumulator
+
+def sort(final_results):
+    new_dict = OrderedDict(sorted(final_results.items(), key=lambda x: x[1], reverse=True))
+    return list(new_dict.keys())
+
+
