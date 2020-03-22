@@ -13,7 +13,7 @@ def example():
     in1 = Ingredient('sugar','1/2','tbsp')
     in2 = Ingredient('spice','1/4','tbsp')
     in3 = Ingredient('everything nice', '1/8','tbsp')
-    r = Recipe('soup','soup.com','vegan',[in1,in2,in3])
+    r = Recipe('soup','http://soup.com','vegan',[in1,in2,in3])
 
     # You have to return an iterable of recipes regardless of how many there
     # actually are
