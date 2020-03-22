@@ -1,5 +1,8 @@
 from bs4 import BeautifulSoup
 
+### Import Individual Scrapers Here ###
+
+###
 
 
 class Ingredient:
@@ -37,22 +40,3 @@ def scrape_task(func):
 def get_tasks():
     return _task_q
 
-@scrape_task
-def bad_example():
-    return ['hello']   
-
-@scrape_task
-def example():
-    in1 = Ingredient('sugar','1/2','tbsp')
-    in2 = Ingredient('spice','1/4','tbsp')
-    in3 = Ingredient('everything nice', '1/8','tbsp')
-    r = Recipe('soup','soup.com','vegan',[in1,in2,in3])
-    return [r]
-
-'''        
-in1 = Ingredient('sugar','1/2','tbsp')
-in2 = Ingredient('spice','1/4','tbsp')
-in3 = Ingredient('everything nice', '1/8','tbsp')
-r = Recipe('soup','soup.com','vegan',[in1,in2,in3])
-print(r())
-'''

@@ -8,14 +8,21 @@ import requests
 import json
 import time
 
+
+### Import Individual Scrapers Here ###
+import example_scraper
+###
+
+
 task_queue = copy.copy(get_tasks())
 
 
 def post_scraped_data(data):
     time.sleep(10)
+    headers={'Content-type':'application/json', 'Accept':'application/json'}
     print(data)
     try:
-        req = requests.post('http://backend:8000/api/import',data=json.dumps(data))
+        req = requests.post('http://backend:8000/api/import/',data=json.dumps(data),headers=headers)
     except:
         print('ERROR: request failed')
 

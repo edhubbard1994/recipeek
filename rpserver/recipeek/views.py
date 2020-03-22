@@ -48,6 +48,9 @@ def searchRequest(request):
 
 @api_view(['POST'])
 def import_recipes(request):
+    print(request.data)
+    recipe_names = [recipe['title'] for recipe in request.data]
+    query = Recipe.objects.filter(title__in=recipe_names)
     return Response(status=200)
     
 '''
