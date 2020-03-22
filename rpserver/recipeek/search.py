@@ -1,19 +1,35 @@
-
+from .models import *
 
 def search(keywords):
     query_accumulator = []
     for word in keywords:
-        context = resolve_keyword(word)
-        results = lookup(word,context)
-        if results:
-            query_accumulator.append(results)
-    return query_accumulator
+        results = lookup(word)
+        if len(results) > 0:
+            query_accumulator = query_accumulator + results
+    return sort(query_accumulator)
 
 
-def resolve_keyword(word):
+def lookup(word):
     #TODO: database queries to find the word context
-    pass
+    #Grab from API if needed
 
-def lookup(word,context):
-    #perform database lookup
-    pass
+    ingredients = Ingredient.objects.get(name=r'.*{re.escape(word)}.*')
+    cuisines = Cuisine.objects.get(name=r'.*{re.escape(word)}.*')
+    diets = Diet.objects.get(name=r'.*{re.escape(word)}.*')
+    recipes = Recipe.objects.get(title=r'.*{re.escape(word)}.*')
+
+    results = []
+
+    if (ingredients):
+        results = results + list(ingredients)
+    if (cuisines):
+        results = results + list(cuisines)
+    if (diets):
+        results = results + list(diets)
+    if (recipes):
+        results = results + list(recipes)
+    return results
+
+def sort(query_accumulator):
+    #Sort here
+    return query_accumulator
