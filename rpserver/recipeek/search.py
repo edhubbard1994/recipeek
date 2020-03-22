@@ -11,23 +11,26 @@ def search(keywords):
 
 def lookup(word):
     #TODO: database queries to find the word context
-    #Grab from API if needed
 
     ingredients = Ingredient.objects.get(name=r'.*{re.escape(word)}.*')
     cuisines = Cuisine.objects.get(name=r'.*{re.escape(word)}.*')
     diets = Diet.objects.get(name=r'.*{re.escape(word)}.*')
     recipes = Recipe.objects.get(title=r'.*{re.escape(word)}.*')
 
-    results = []
+    results = set()
 
     if (ingredients):
-        results = results + list(ingredients)
+        ingredients_recipes = Recipe.objects.filter(cuisine=cuisines.name)
+        results.add(set(ingredients_recipes))
     if (cuisines):
-        results = results + list(cuisines)
+        cuisine_recipes = Recipe.objects.filter(cuisine=cuisines.name)
+        results.add(set(cuisine_recipes))
     if (diets):
-        results = results + list(diets)
+        diet_recipes = Recipe.objects.filter(diet=diets.name)
+        results.add(set(diet_recipes))
     if (recipes):
-        results = results + list(recipes)
+        results.add(recipes)
+    #Remove duplicates
     return results
 
 def sort(query_accumulator):
