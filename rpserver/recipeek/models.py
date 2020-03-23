@@ -5,24 +5,28 @@ from django.contrib.postgres.fields import ArrayField
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=200, primary_key=True)
+    objects = models.Manager()
 
     def __str__(self):
         return self.name
 
 class Cuisine(models.Model):
     name = models.CharField(max_length=200, primary_key=True)
+    objects = models.Manager()
 
     def __str__(self):
         return self.name
 
 class Diet(models.Model):
     name = models.CharField(max_length=200, primary_key=True)
+    objects = models.Manager()
 
     def __str__(self):
         return self.name
 
 class User(models.Model):
     email = models.EmailField(primary_key=True)
+    objects = models.Manager()
 
     def __str__(self):
         return self.email
@@ -36,6 +40,7 @@ class Recipe(models.Model):
     cuisine = models.ManyToManyField(Cuisine)
     diet = models.ManyToManyField(Diet, through='RecipeIngredient')
     user = models.ManyToManyField(User, through='UserRecipe')
+    objects = models.Manager()
 
     def __str__(self):
         return self.title
@@ -47,10 +52,11 @@ class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.DO_NOTHING)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.DO_NOTHING)
     diet = models.ForeignKey(Diet, on_delete=models.DO_NOTHING)
+    objects = models.Manager()
 
 class UserRecipe(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     recipe = models.ForeignKey(Recipe, on_delete=models.DO_NOTHING)
     isFavorite = models.BooleanField(default = False)
-
+    objects = models.Manager()
