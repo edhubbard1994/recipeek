@@ -18,6 +18,6 @@ body {
 }
 
 .search {
-  grid-area:  2 / 2 / 3 / 3;;
+  grid-area:  2 / 2 / 3 / 3;
   display: grid;
 }
