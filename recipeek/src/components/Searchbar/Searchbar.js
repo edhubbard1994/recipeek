@@ -14,7 +14,7 @@ const Searchbar = (props) => {
                 value={searchInput}
                 onChange={onChange}
             />
-            <button onClick={onClick} className={styles.searchbarButton}>
+            <button onClick={btnCallback} className={styles.searchbarButton}>
                 Search
             </button>
         </div>
@@ -32,4 +32,9 @@ Searchbar.defaultProps = {
     label: 'Search',
 };
 
+let btnCallback = async () => {
+    let results = await fetch('http://localhost:8000/api/test')
+        .then(res => res.json())
+        .then(recipes => console.log(recipes))
+}
 export default Searchbar;

@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from .models import *
+from fractions import Fraction
 
 #from .serializers import RecipeSerializer
 from .search import search
@@ -16,28 +17,20 @@ from bs4 import BeautifulSoup
 
 #just a test view to see if this thing works
 
-html_doc = """
-<html><head><title>The Dormouse's story</title></head>
-<body>
-<p class="title"><b>The Dormouse's story</b></p>
 
-<p class="story">Once upon a time there were three little sisters; and their names were
-<a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>,
-<a href="http://example.com/lacie" class="sister" id="link2">Lacie</a> and
-<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>;
-and they lived at the bottom of a well.</p>
-
-<p class="story">...</p>
-"""
 @api_view(['GET'])
 def hello_world(request):
-    global html_doc
-    test_scrape = BeautifulSoup(html_doc,'html.parser')
-    data_back = {
-        'title' : str(test_scrape.title.extract()),
-        'links' : [str(test_scrape.a.extract())]
+    recipes = Recipe.objects.all()
+    acc =[]
+    for recipe in recipes:
+        json = {
+            'name': recipe.title,
+            'url': recipe.recipe_url,
+            'calories':recipe.calories
         }
-    return Response(data=data_back,status=200)
+        acc.append(json)
+        
+    return Response(data=acc,status=200)
 
 @api_view(['POST'])
 def searchRequest(request):
@@ -51,6 +44,54 @@ def import_recipes(request):
     print(request.data)
     recipe_names = [recipe['title'] for recipe in request.data]
     query = Recipe.objects.filter(title__in=recipe_names)
+    arr = request.data
+    for recipe in arr:
+        cuisine = Cuisine.objects.get_or_create(name=recipe['cuisine'])
+        diet = Diet.objects.get_or_create(name='unknown')
+        image_url = 'unknown'
+        calories = 0
+        try:
+            calories = recipe['calories']
+        except:
+            pass
+        try:
+            image_url = recipe['image_url']
+        except:
+            pass
+        try:
+            diet = Diet.objects.get_or_create(name=recipe['diet'])
+        except:
+            diet = Diet.objects.get_or_create(name='unknown')
+
+        r = Recipe(
+            title=recipe['title'],
+            image_url=image_url,
+            recipe_url=recipe['recipe_url'],
+            calories=calories,
+            #cuisine=cuisine
+            )
+        r.save()
+        #r.diet.add(diet)
+        #r.calories.set(calories)
+        #r.cuisine.set(cuisine)
+        for i in recipe['ingredients']:
+            amount = 1.0
+            if type(i['amount']) == str:
+                try:
+                    amount = float(Fraction(i['amount']))
+                except:
+                    amount = 1.0
+            else:
+                try:
+                    amount = float(i['amount'])
+                except:
+                    amount = 1.0
+            ing = Ingredient(
+                i['ingredient']
+            )
+            ing.save()
+
+    print(list(query))
     return Response(status=200)
     
 '''
