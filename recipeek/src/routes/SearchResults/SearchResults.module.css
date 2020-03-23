@@ -1,0 +1,23 @@
+@value colors: "../../styles/styles/colors.css";
+@value concrete from colors;
+
+body {
+  background-color: concrete;
+}
+
+.wrapper {
+	display: grid;
+	grid-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+
+.logo {
+   grid-area: 1 / 5 / 2 / 7;
+   width: 10vw;
+}
+
+.search {
+  grid-area: 2 / 3 / 3 / 9;
+}
