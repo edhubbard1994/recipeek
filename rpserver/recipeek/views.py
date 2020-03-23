@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 from .models import *
 from fractions import Fraction
+from .search import *
 
 #from .serializers import RecipeSerializer
 from .search import search
@@ -29,14 +30,22 @@ def hello_world(request):
             'calories':recipe.calories
         }
         acc.append(json)
-        
+
     return Response(data=acc,status=200)
 
 @api_view(['POST'])
 def searchRequest(request):
     serialized = request.data
-    search(serialized['keywords'])
-    return Response({"Implement" : "At some point"})
+    recipes = search.search_recipes_sorted(serialized['keywords'])
+    acc =[]
+    for recipe in recipes:
+        json = {
+            'name': recipe.title,
+            'url': recipe.recipe_url,
+            'calories':recipe.calories
+        }
+        acc.append(json)
+    return Response(data=acc,status=200)
     
 
 @api_view(['POST'])
