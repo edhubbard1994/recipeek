@@ -1,6 +1,6 @@
 import requests
 import json
-import spoonacular as sp
+#import spoonacular as sp
 
 def getRecipes():
     API_KEY = "d1417a3a8f0c4abab57d01a7428b3e15"

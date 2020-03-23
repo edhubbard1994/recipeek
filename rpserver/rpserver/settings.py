@@ -25,9 +25,9 @@ SECRET_KEY = 'rqcb-#ktkqt8j#th&g%j-+$ar!b#7o=2j$a#r1-7&l6e=dji(m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['backend','localhost','127.0.0.1']
 CORS_ORIGIN_ALLOW_ALL = True
-
+APPEND_SLASH=True
 # Application definition
 
 INSTALLED_APPS = [

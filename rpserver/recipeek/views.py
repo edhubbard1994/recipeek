@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.permissions import AllowAny
+from .models import *
 
 #from .serializers import RecipeSerializer
 from .search import search
@@ -42,7 +43,15 @@ def hello_world(request):
 def searchRequest(request):
     serialized = request.data
     search(serialized['keywords'])
-    return Response({"Implement":"At some point"})
+    return Response({"Implement" : "At some point"})
+    
+
+@api_view(['POST'])
+def import_recipes(request):
+    print(request.data)
+    recipe_names = [recipe['title'] for recipe in request.data]
+    query = Recipe.objects.filter(title__in=recipe_names)
+    return Response(status=200)
     
 '''
 class RecipeView(ModelViewSet):
