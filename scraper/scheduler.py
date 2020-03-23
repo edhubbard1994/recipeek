@@ -11,6 +11,7 @@ import time
 
 ### Import Individual Scrapers Here ###
 import example_scraper
+import edamam_api
 ###
 
 

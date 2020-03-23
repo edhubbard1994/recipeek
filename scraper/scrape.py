@@ -1,8 +1,5 @@
 from bs4 import BeautifulSoup
 
-### Import Individual Scrapers Here ###
-
-###
 
 
 class Ingredient:
