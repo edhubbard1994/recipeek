@@ -1,12 +1,16 @@
 from .models import *
 from collections import OrderedDict
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+import logging
 
 def search_recipes_sorted(keywords):
     final_results_weighted = {}
-    for word in keywords:
+    for word in keywords.split():
+        logging.warning(word)
         results = search(word)
-        for recipe in results.items():
-            if recipe in final_results_weighted.items():
+        logging.warning(results)
+        for recipe in results:
+            if recipe in final_results_weighted.keys():
                 final_results_weighted[recipe] += results[recipe]
             else:
                 final_results_weighted[recipe] = results[recipe]
@@ -14,38 +18,42 @@ def search_recipes_sorted(keywords):
 
 
 def search(word):
-    ingredients = Ingredient.objects.get(name=r'.*{re.escape(word)}.*')
-    cuisines = Cuisine.objects.get(name=r'.*{re.escape(word)}.*')
-    diets = Diet.objects.get(name=r'.*{re.escape(word)}.*')
-    recipes = Recipe.objects.get(title=r'.*{re.escape(word)}.*')
+    # ingredients = Ingredient.objects.filter(name__icontains=word)
+    # cuisines = Cuisine.objects.filter(name__icontains=word)
+    # diets = Diet.objects.filter(name__icontains=word)
+    recipes = Recipe.objects.filter(title__icontains=word)
 
     results = {}
 
+    for recipe in recipes:
+        results[recipe] = 1
+
     #Increments weight of each recipe by a predetermined amount.
     #Recipe title is weighted higher, and so are multiple matches.
-    if ingredients:
-        ingredients_recipes = Recipe.objects.filter(ingredient=ingredients.name)
-        for rec in ingredients_recipes:
-            if rec in results:
-                results[rec] += 1
-            else:
-                results[rec] = 1
+    # if ingredients:
+    #     logging.warning(ingredients[0].name)
+    #     ingredients_recipes = Recipe.objects.filter(ingredient__name=ingredients[0].name)
+    #     for rec in ingredients_recipes:
+    #         if rec in results:
+    #             results[rec] += 1
+    #         else:
+    #             results[rec] = 1
 
-    if cuisines:
-        cuisine_recipes = Recipe.objects.filter(cuisine=cuisines.name)
-        for rec in cuisine_recipes:
-            if rec in results:
-                results[rec] += 1
-            else:
-                results[rec] = 1
-
-    if diets:
-        diet_recipes = Recipe.objects.filter(diet=diets.name)
-        for rec in diet_recipes:
-            if rec in results:
-                results[rec] += 1
-            else:
-                results[rec] = 1
+    # if cuisines:
+    #     cuisine_recipes = Recipe.objects.filter(cuisine__name=cuisines[0].name)
+    #     for rec in cuisine_recipes:
+    #         if rec in results:
+    #             results[rec] += 1
+    #         else:
+    #             results[rec] = 1
+    #
+    # if diets:
+    #     diet_recipes = Recipe.objects.filter(diet__name=diets[0].name)
+    #     for rec in diet_recipes:
+    #         if rec in results:
+    #             results[rec] += 1
+    #         else:
+    #             results[rec] = 1
 
     if recipes:
         for rec in recipes:
@@ -60,5 +68,3 @@ def search(word):
 def sort(final_results):
     new_dict = OrderedDict(sorted(final_results.items(), key=lambda x: x[1], reverse=True))
     return list(new_dict.keys())
-
-

@@ -38,8 +38,8 @@ class Recipe(models.Model):
     recipe_url = models.URLField()
     calories = models.IntegerField(default=0)
     cuisine = models.ManyToManyField(Cuisine)
-    ingredient = models.ManyToManyField(Ingredient, null=True)
-    diet = models.ManyToManyField(Diet,null=True)
+    ingredient = models.ManyToManyField(Ingredient)
+    diet = models.ManyToManyField(Diet)
     user = models.ManyToManyField(User, through='UserRecipe')
     objects = models.Manager()
 
