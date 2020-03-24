@@ -36,13 +36,16 @@ def hello_world(request):
 @api_view(['POST'])
 def searchRequest(request):
     serialized = request.data
-    recipes = search.search_recipes_sorted(serialized['keywords'])
+    # recipes = search_recipes_sorted(serialized['keywords'])
+    temp = {'chicken'}
+    recipes = search_recipes_sorted(temp)
+
     acc =[]
     for recipe in recipes:
         json = {
             'name': recipe.title,
             'url': recipe.recipe_url,
-            'calories':recipe.calories
+            'calories': recipe.calories
         }
         acc.append(json)
     return Response(data=acc,status=200)
