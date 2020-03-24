@@ -50,10 +50,19 @@ def searchRequest(request):
 
 @api_view(['POST'])
 def import_recipes(request):
-    print(request.data)
+    print(len(request.data))
     recipe_names = [recipe['title'] for recipe in request.data]
-    query = Recipe.objects.filter(title__in=recipe_names)
-    arr = request.data
+    querys = Recipe.objects.filter(title__in=recipe_names)
+    existing_names = set({})
+    for query in querys:
+        if query.title in recipe_names:
+            existing_names.add(query.title)
+    print('existing:')
+    print(existing_names)
+    unique_requests = [recipe for recipe in request.data if recipe['title'] not in existing_names ]
+    print("uniques:")
+    print(len(unique_requests))
+    arr = unique_requests
     for recipe in arr:
         cuisine = Cuisine.objects.get_or_create(name=recipe['cuisine'])
         diet = Diet.objects.get_or_create(name='unknown')
@@ -96,20 +105,12 @@ def import_recipes(request):
                 except:
                     amount = 1.0
             ing = Ingredient(
-                i['ingredient']
+                i['ingredient'][:199] 
             )
             ing.save()
-
-    print(list(query))
     return Response(status=200)
+
     
-'''
-class RecipeView(ModelViewSet):
-  
-    queryset = RecipeModel.objects.all()
-    serializer_class = RecipeSerializer
-    permission_classes = [AllowAny]
-'''
 
 
 
