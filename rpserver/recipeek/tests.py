@@ -5,7 +5,7 @@ import requests
 
 def test():
     url = 'http://localhost:8000/api/search/'
-    r = requests.post(url, data={'keywords': 'chicken'})
+    r = requests.post(url, data={'keywords': 'gluten-free paprika'})
     recipes = r.json()
     print(recipes)
 
