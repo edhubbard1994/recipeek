@@ -324,3 +324,4 @@ sketch
 .history
 
 # End of https://www.gitignore.io/api/node,react,python,pycharm,visualstudiocode
+/venv/
