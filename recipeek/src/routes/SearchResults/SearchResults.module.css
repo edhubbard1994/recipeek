@@ -9,15 +9,15 @@ body {
 	display: grid;
 	grid-gap: 10px;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(8, 1fr);
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(10, 1fr);
 }
 
 .logo {
-   grid-area: 1 / 5 / 2 / 7;
+   grid-area:  1 / 6 / 2 / 8;
    width: 10vw;
 }
 
 .search {
-  grid-area: 2 / 3 / 3 / 9;
+  grid-area:  2 / 4 / 3 / 10;
 }
