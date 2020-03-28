@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './SearchResultCard.module.css';
 
 const SearchResultCard = (props) => {
-    let { recipeName, cuisine, diet, recipeURL, recipeImageURL } = props;
+    let { recipeName, cuisine, diet, calories, recipeURL, recipeImageURL } = props;
 
     return (
       <div onClick={() => {window.open(recipeURL)}} className={styles.card}>
@@ -28,6 +28,12 @@ const SearchResultCard = (props) => {
         <h1 className={styles.dietText}>
           {diet}
         </h1>
+        <div className={styles.labelBoxCal}>
+          <h1 className={styles.label}>Calories</h1>
+        </div>
+        <h1 className={styles.calText}>
+          {calories}
+        </h1>
       </div>
     );
 };
@@ -36,7 +42,7 @@ SearchResultCard.propTypes = {
   recipeName: PropTypes.string.isRequired,
   cuisine: PropTypes.string,
   diet: PropTypes.string,
-  // onClick: PropTypes.func.isRequired,
+  calories: PropTypes.number,
   recipeURL: PropTypes.string.isRequired,
   recipeImageURL: PropTypes.string,
 };
