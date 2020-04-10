@@ -5,16 +5,16 @@ import styles from './Searchbar.module.css';
 const Searchbar = (props) => {
     let { label, onClick, searchInput, onChange } = props;
 
+    
     return (
         <div className={styles.searchbar}>
             <input
                 className={styles.searchbarInputField}
                 type="text"
                 placeholder={label}
-                value={searchInput}
                 onChange={onChange}
             />
-            <button onClick={btnCallback} className={styles.searchbarButton}>
+            <button onClick={onClick} className={styles.searchbarButton}>
                 Search
             </button>
         </div>
@@ -32,9 +32,7 @@ Searchbar.defaultProps = {
     label: 'Search',
 };
 
-let btnCallback = async () => {
-    let results = await fetch('http://localhost:8000/api/test')
-        .then(res => res.json())
-        .then(recipes => console.log(recipes))
-}
+
+
+
 export default Searchbar;
