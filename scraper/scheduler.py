@@ -10,7 +10,7 @@ import time
 
 
 ### Import Individual Scrapers Here ###
-#import example_scraper
+import example_scraper
 #import edamam_api
 ###
 
@@ -24,8 +24,9 @@ def post_scraped_data(data):
     print(data)
     try:
         req = requests.post('http://backend:8000/api/import/',data=json.dumps(data),headers=headers)
-    except:
+    except Exception as e:
         print('ERROR: request failed')
+        print(str(e))
 
 def run_tasks():
     collected_data = []

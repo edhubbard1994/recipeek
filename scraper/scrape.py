@@ -16,7 +16,7 @@ class Ingredient:
 
 class Recipe:
 
-    def __init__(self,title,recipe_url,cuisine,ingredients,image_url=None,calories=None):
+    def __init__(self,title,recipe_url,cuisine,ingredients,image_url=None,calories=None,diet=None):
         self.title = title
         self.recipe_url = recipe_url
         self.cuisine = cuisine
@@ -25,6 +25,8 @@ class Recipe:
             self.image_url = image_url
         if calories:
             self.calories = calories
+        if diet:
+            self.diet = diet
 
     def __call__(self):
         return self.__dict__

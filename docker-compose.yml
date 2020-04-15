@@ -15,17 +15,9 @@ services:
     - '8000:8000'
   scrapers:
     build: scraper
-    image: scrapers
-    
-    #depends_on:
-     # - db
- # db:
-  #  image: postgres
-   # ports:
-    #  - "5432:5432"
-    #environment:
-     # POSTGRES_DB: "db"
-      #POSTGRES_HOST_AUTH_METHOD: "trust"
+    image: scrapers  
+    depends_on:
+     - backend
 networks: 
   default:
     external: 

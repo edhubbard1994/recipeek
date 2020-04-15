@@ -70,8 +70,8 @@ def import_recipes(request):
     print(len(unique_requests))
     arr = unique_requests
     for recipe in arr:
-        cuisine = Cuisine.objects.get_or_create(name=recipe['cuisine'])
-        diet = Diet.objects.get_or_create(name='unknown')
+        cuisine = recipe['cuisine']
+        diet = 'unknown'
         image_url = 'unknown'
         calories = 0
         try:
@@ -83,37 +83,22 @@ def import_recipes(request):
         except:
             pass
         try:
-            diet = Diet.objects.get_or_create(name=recipe['diet'])
+            diet = recipe['diet']
         except:
-            diet = Diet.objects.get_or_create(name='unknown')
+            diet = ''
 
         r = Recipe(
             title=recipe['title'],
             image_url=image_url,
             recipe_url=recipe['recipe_url'],
             calories=calories,
-            #cuisine=cuisine
+            diet=diet,
+            cuisine=cuisine
             )
         r.save()
         #r.diet.add(diet)
         #r.calories.set(calories)
         #r.cuisine.set(cuisine)
-        for i in recipe['ingredients']:
-            amount = 1.0
-            if type(i['amount']) == str:
-                try:
-                    amount = float(Fraction(i['amount']))
-                except:
-                    amount = 1.0
-            else:
-                try:
-                    amount = float(i['amount'])
-                except:
-                    amount = 1.0
-            ing = Ingredient(
-                i['ingredient'][:199] 
-            )
-            ing.save()
     return Response(status=200)
 
     

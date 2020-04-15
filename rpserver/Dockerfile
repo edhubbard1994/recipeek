@@ -23,10 +23,13 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
+
+ARG build_mode
+RUN if [ "$build_mode" = "migrate" ] ; then python manage.py makemigrations; python manage.py migrate; fi
+
+#RUN python manage.py makemigrations
+#RUN python manage.py migrate
 EXPOSE 8000
 
-WORKDIR /
-
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
-
+ENTRYPOINT ["python","manage.py"]
+CMD [ "runserver","0.0.0.0:8000" ]
