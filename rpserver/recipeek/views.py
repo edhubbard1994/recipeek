@@ -50,10 +50,12 @@ def searchRequest(request):
         json = {
             'name': recipe.title,
             'url': recipe.recipe_url,
-            'calories': recipe.calories
+            'calories': recipe.calories,
+            'cuisine': recipe.cuisine,
+            'diets': recipe.diet
         }
         acc.append(json)
-    return Response(data=acc,status=200)
+    return Response(data=acc, status=200)
     
 
 @api_view(['POST'])
@@ -91,7 +93,7 @@ def import_recipes(request):
 
         r = Recipe(
             title=recipe['title'],
-            image_url=image_url,
+            image_url=recipe['image_url'],
             recipe_url=recipe['recipe_url'],
             calories=calories,
             diet=diet,

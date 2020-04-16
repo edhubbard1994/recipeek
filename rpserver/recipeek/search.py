@@ -1,19 +1,18 @@
+from django.db.models import Q
+
 from .models import *
 from collections import OrderedDict
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
-import logging
 
 def search_recipes_sorted(keywords):
     final_results_weighted = {}
-    words_to_filter = []
+    words_to_filter = {'has': [], 'diet': []}
 
     for word in keywords.split():
         if word.startswith("has:"):
-            logging.warning(word)
-            logging.warning(word[4:])
-            words_to_filter.append(word[4:])
+            words_to_filter['has'].append(word[4:])
+        elif word.startswith("diet:"):
+            words_to_filter['diet'].append(word[5:])
         else:
-            logging.warning(word)
             results = search(word)
             for recipe in results:
                 if recipe in final_results_weighted.keys():
@@ -26,27 +25,14 @@ def search_recipes_sorted(keywords):
     return sort(filtered_list)
 
 def search(word):
-    # ingredients = Ingredient.objects.filter(name__icontains=word)
     # cuisines = Cuisine.objects.filter(name__icontains=word)
-    # diets = Diet.objects.filter(name__icontains=word)
-    recipes = Recipe.objects.filter(title__icontains=word)
 
+    recipes = Recipe.objects.filter(Q(title__icontains=word) | Q(recipe_url__contains=word))
+    diet_recipes = Recipe.objects.filter(diet__icontains=word)
     results = {}
-    # 
-    # for recipe in recipes:
-    #     results[recipe] = 1
 
     #Increments weight of each recipe by a predetermined amount.
     #Recipe title is weighted higher, and so are multiple matches.
-    # if ingredients:
-    #     logging.warning(ingredients[0].name)
-    #     ingredients_recipes = Recipe.objects.filter(ingredient__name=ingredients[0].name)
-    #     for rec in ingredients_recipes:
-    #         if rec in results:
-    #             results[rec] += 1
-    #         else:
-    #             results[rec] = 1
-
     # if cuisines:
     #     cuisine_recipes = Recipe.objects.filter(cuisine__name=cuisines[0].name)
     #     for rec in cuisine_recipes:
@@ -54,14 +40,13 @@ def search(word):
     #             results[rec] += 1
     #         else:
     #             results[rec] = 1
-    #
-    # if diets:
-    #     diet_recipes = Recipe.objects.filter(diet__name=diets[0].name)
-    #     for rec in diet_recipes:
-    #         if rec in results:
-    #             results[rec] += 1
-    #         else:
-    #             results[rec] = 1
+
+    if diet_recipes:
+        for rec in diet_recipes:
+            if rec in results:
+                results[rec] += 6
+            else:
+                results[rec] = 6
 
     if recipes:
         for rec in recipes:
@@ -78,9 +63,15 @@ def filterByKeywords(words_to_filter, final_results_weighted):
     for recipe in final_results_weighted.keys():
         should_delete = False
 
-        for word in words_to_filter:
-            if word.lower() not in recipe.title.lower():
-                should_delete = True
+        if 'has' in words_to_filter.keys():
+            for word in words_to_filter['has']:
+                if word.lower() not in recipe.title.lower():
+                    should_delete = True
+
+        if 'diet' in words_to_filter.keys():
+            for word in words_to_filter['diet']:
+                if word.lower() not in recipe.diet.lower():
+                    should_delete = True
 
         if should_delete:
             final_filtered_recipes.pop(recipe)
