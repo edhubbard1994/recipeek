@@ -3,26 +3,6 @@ from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
-class Ingredient(models.Model):
-    name = models.CharField(max_length=200, primary_key=True)
-    objects = models.Manager()
-
-    def __str__(self):
-        return self.name
-
-class Cuisine(models.Model):
-    name = models.CharField(max_length=200, primary_key=True)
-    objects = models.Manager()
-
-    def __str__(self):
-        return self.name
-
-class Diet(models.Model):
-    name = models.CharField(max_length=200, primary_key=True)
-    objects = models.Manager()
-
-    def __str__(self):
-        return self.name
 
 class User(models.Model):
     email = models.EmailField(primary_key=True)
@@ -37,9 +17,8 @@ class Recipe(models.Model):
     image_url = models.URLField()
     recipe_url = models.URLField()
     calories = models.IntegerField(default=0)
-    cuisine = models.ManyToManyField(Cuisine)
-    ingredient = models.ManyToManyField(Ingredient)
-    diet = models.ManyToManyField(Diet)
+    cuisine = models.CharField(max_length=120)
+    diet = ArrayField(models.CharField(max_length=120),size=20)
     user = models.ManyToManyField(User, through='UserRecipe')
     objects = models.Manager()
 
