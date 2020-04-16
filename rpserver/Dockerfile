@@ -27,8 +27,6 @@ COPY . /app
 ARG build_mode
 RUN if [ "$build_mode" = "migrate" ] ; then python manage.py makemigrations; python manage.py migrate; fi
 
-#RUN python manage.py makemigrations
-#RUN python manage.py migrate
 EXPOSE 8000
 
 ENTRYPOINT ["python","manage.py"]

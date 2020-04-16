@@ -18,7 +18,7 @@ class Recipe(models.Model):
     recipe_url = models.URLField()
     calories = models.IntegerField(default=0)
     cuisine = models.CharField(max_length=120)
-    diet = models.CharField(max_length=120)
+    diet = ArrayField(models.CharField(max_length=120),size=20)
     user = models.ManyToManyField(User, through='UserRecipe')
     objects = models.Manager()
 

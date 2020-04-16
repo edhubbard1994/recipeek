@@ -28,7 +28,9 @@ def hello_world(request):
         json = {
             'name': recipe.title,
             'url': recipe.recipe_url,
-            'calories':recipe.calories
+            'calories':recipe.calories,
+            'diet':  recipe.diet.strip('{}'),
+            'cuisine': recipe.cuisine
         }
         acc.append(json)
 
@@ -71,7 +73,7 @@ def import_recipes(request):
     arr = unique_requests
     for recipe in arr:
         cuisine = recipe['cuisine']
-        diet = 'unknown'
+        diet = []
         image_url = 'unknown'
         calories = 0
         try:
@@ -85,7 +87,7 @@ def import_recipes(request):
         try:
             diet = recipe['diet']
         except:
-            diet = ''
+            diet = []
 
         r = Recipe(
             title=recipe['title'],
