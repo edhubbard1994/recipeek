@@ -2,7 +2,11 @@ from scrape import Recipe, Ingredient, scrape_task
 import requests
 import time
 
-querey_params = ['mediterranean','chinese','american']
+query_params1 = ['mediterranean','chinese','american','indian']
+query_params2 = ['healthy','vegan', 'chicken','rice','breakfast']
+query_params3 = ['lunch', 'dinner', 'snack', 'fruit','mexican'] 
+query_params4 = ['southern', 'comfort', 'steak', 'carribean', 'sides']
+query_params5 = ['soul','kosher','halal','vegetarian']
 
 def collect_ingredients(ingredients):
     acc = []
@@ -34,26 +38,58 @@ def edamam_api_call(query):
     try:
         for i in range(len(recipes['hits'])):
             ingredients = recipes['hits'][i]['recipe']['ingredients']
-            recipe = recipes['hits'][i]['recipe']
+            recipe = recipes['hits'][i]['recipe']            
             recipe_ob = Recipe(
                 recipe['label'],
                 recipe['url'],
                 'unknown',
                 collect_ingredients(ingredients),
                 recipe['image'],
-                recipe['calories']
+                recipe['calories'],
+                recipe['dietLabels']
             )
             acc.append(recipe_ob)
         return acc
-    except:
+    except Exception as e:
+        print(str(e))
         return []
 
 @scrape_task
-def collect_api_calls():
+def collect_api_calls1():
     acc = []
-    for query in querey_params:
+    for query in query_params1:
         acc.extend(edamam_api_call(query))
-        time.sleep(0.5)
+        time.sleep(12)
+    return acc
+
+@scrape_task
+def collect_api_calls2():
+    acc = []
+    for query in query_params2:
+        acc.extend(edamam_api_call(query))
+        time.sleep(12)
+    return acc
+
+@scrape_task
+def collect_api_calls3():
+    acc = []
+    for query in query_params3:
+        acc.extend(edamam_api_call(query))
+        time.sleep(12)
+    return acc
+
+@scrape_task
+def collect_api_calls4():
+    acc = []
+    for query in query_params4:
+        acc.extend(edamam_api_call(query))
+        time.sleep(12)
     return acc
     
-#print(edamam_api_call())
+@scrape_task
+def collect_api_calls5():
+    acc = []
+    for query in query_params5:
+        acc.extend(edamam_api_call(query))
+        time.sleep(12)
+    return acc
