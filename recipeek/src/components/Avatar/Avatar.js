@@ -25,8 +25,8 @@ const Avatar = (props) => {
         );
     } else { //otherwise, use first initial
         let firstInitial = username.slice(0, 1).toUpperCase();
-        let letterSize = parseInt(size.replace('px', '')) * 0.5; //uses size of avatar to calc
-        let fontSize = `${letterSize}px`;
+        let letterSize = parseInt(size.replace('vw', '')) * 0.5; //uses size of avatar to calc
+        let fontSize = `${letterSize}vw`;
 
         return (
             <div className={styles.avatar} style={dynamicSize} onClick={onClick}>
