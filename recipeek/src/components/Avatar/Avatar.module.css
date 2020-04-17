@@ -1,5 +1,5 @@
 @value colors: "../../styles/styles/colors.css";
-@value suvaGrey from colors;
+@value suvaGrey, silverSand from colors;
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Pacifico|Roboto&display=swap');
 /* Use the following CSS rules to specify these families:
 
@@ -10,9 +10,11 @@
 
  .avatar {
     display: flex;
-    background-color: suvaGrey;
+    background-color: silverSand;
     object-fit: cover;
     justify-content: center;
     align-items: center;
     font-size: 50%;
+    font-family: 'Roboto', sans-serif;
+    color: rgba(0, 0, 0, 0.55);
 }
