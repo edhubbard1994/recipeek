@@ -1,0 +1,24 @@
+@value colors: "../../styles/styles/colors.css";
+@value iguana, apple from colors;
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Pacifico|Roboto&display=swap');
+/* Use the following CSS rules to specify these families:
+
+    font-family: 'Pacifico', cursive;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+ */
+
+.gradientbutton {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    min-width: 120px;
+    min-height: 40px;
+    border-radius: 5px;
+    border: 0;
+    outline: none;
+    background-image: linear-gradient(to right, apple, iguana);
+}
+
+.gradientbutton:hover {
+    cursor: pointer;
+}
