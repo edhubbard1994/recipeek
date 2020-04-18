@@ -6,13 +6,13 @@ const GradientButton = (props) => {
     let { label, onClick } = props;
 
     return (
-        <button onClick={onClick} className={gradientbutton}>
+        <button onClick={onClick} className={styles.gradientbutton}>
             <p> {label} </p>
         </button>
     );
 };
 
-SecondaryButton.propTypes = {
+GradientButton.propTypes = {
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
 };

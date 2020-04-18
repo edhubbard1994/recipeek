@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './Login.module.css';
+import styles from './SignUp.module.css';
 import logo from '../../assets/recipeek-logo.png';
 
 export default class SearchResults extends Component {
