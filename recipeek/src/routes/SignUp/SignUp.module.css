@@ -1,0 +1,10 @@
+@value colors: "../../styles/styles/colors.css";
+@value concrete from colors;
+
+body {
+  background-color: concrete;
+}
+
+.logo {
+   width: 10vw;
+}
