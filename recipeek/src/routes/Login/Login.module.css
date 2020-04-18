@@ -1,10 +1,24 @@
 @value colors: "../../styles/styles/colors.css";
-@value concrete from colors;
+@value concrete, silverSand from colors;
 
 body {
   background-color: concrete;
 }
 
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .logo {
-   width: 10vw;
+  width: 15%;
+  padding-top: 5%;
+}
+
+.inputFields {
+  width: 15%;
+  border: none;
+  border-bottom: 2px solid silverSand;
+  background-color: concrete;
 }
