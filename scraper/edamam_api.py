@@ -38,7 +38,13 @@ def edamam_api_call(query):
     try:
         for i in range(len(recipes['hits'])):
             ingredients = recipes['hits'][i]['recipe']['ingredients']
-            recipe = recipes['hits'][i]['recipe']            
+            recipe = recipes['hits'][i]['recipe']
+            labels = []    
+            if 'healthLabels' in recipe.keys():
+                labels.extend(recipe['healthLabels']) 
+            if 'dietLabels' in recipe.keys():
+                labels.extend(recipe['dietLabels']) 
+            print(labels)
             recipe_ob = Recipe(
                 recipe['label'],
                 recipe['url'],
@@ -46,7 +52,7 @@ def edamam_api_call(query):
                 collect_ingredients(ingredients),
                 recipe['image'],
                 recipe['calories'],
-                recipe['dietLabels']
+                labels
             )
             acc.append(recipe_ob)
         return acc

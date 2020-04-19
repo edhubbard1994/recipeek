@@ -52,7 +52,8 @@ def searchRequest(request):
             'url': recipe.recipe_url,
             'calories': recipe.calories,
             'cuisine': recipe.cuisine,
-            'diets': recipe.diet
+            'diets': recipe.diet,
+            'imageUrl': recipe.image_url
         }
         acc.append(json)
     return Response(data=acc, status=200)
