@@ -14,6 +14,8 @@ const SearchResultCard = (props) => {
       var name = recipeName;
     }
 
+    var dietList = diet.replace("{", "").replace("}", "").split(",", 3);
+
     return (
       <div onClick={() => {window.open(recipeURL)}} className={styles.card}>
         <img
@@ -35,7 +37,7 @@ const SearchResultCard = (props) => {
           <h1 className={styles.label}>Diet</h1>
         </div>
         <h1 className={styles.dietText}>
-          {diet.replace("{", "").replace("}", "")}
+          {dietList.join(", ")}
         </h1>
         <div className={styles.labelBoxCal}>
           <h1 className={styles.label}>Calories</h1>
