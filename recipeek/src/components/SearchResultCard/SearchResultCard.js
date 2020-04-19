@@ -5,7 +5,7 @@ import styles from './SearchResultCard.module.css';
 const SearchResultCard = (props) => {
     let { recipeName, cuisine, diet, calories, recipeURL, recipeImageURL } = props;
 
-    let MAX_LENGTH = 40;
+    let MAX_LENGTH = 35;
 
     if (recipeName.length >= MAX_LENGTH) {
       var name = recipeName.substr(0, MAX_LENGTH) + "\u2026";
