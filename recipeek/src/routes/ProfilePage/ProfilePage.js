@@ -14,7 +14,7 @@ export default class Home extends Component {
                     alt = "test image"
                     onClick = {() => {alert('clicked')}}
                     avatarData = {{
-                      avatarImageURL: 'https://images.unsplash.com/photo-1543333108-4f3e0f5a7d11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1336&q=80',
+                      imageURL: 'https://images.unsplash.com/photo-1568564321589-3e581d074f9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
                       username: 'user',
                     }}
                   />
