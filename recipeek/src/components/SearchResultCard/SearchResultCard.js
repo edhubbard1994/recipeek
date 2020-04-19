@@ -35,7 +35,7 @@ const SearchResultCard = (props) => {
           <h1 className={styles.label}>Diet</h1>
         </div>
         <h1 className={styles.dietText}>
-          {diet}
+          {diet.replace("{", "").replace("}", "")}
         </h1>
         <div className={styles.labelBoxCal}>
           <h1 className={styles.label}>Calories</h1>
