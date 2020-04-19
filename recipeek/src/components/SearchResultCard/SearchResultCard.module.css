@@ -28,6 +28,7 @@
    width: 100%;
    max-height: 12.8vw;
    border-radius: 5px 5px 0px 0px;
+   object-fit: cover;
  }
 
  .name {
