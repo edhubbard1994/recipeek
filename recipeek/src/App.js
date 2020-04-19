@@ -1,6 +1,9 @@
 import React from 'react';
 import './styles/styles/App.css';
 import Home from './routes/Home';
+import ProfilePage from './routes/ProfilePage';
+import SignUp from './routes/SignUp';
+import Login from './routes/Login';
 import { Route, Redirect, Switch } from 'react-router-dom'
 
 class App extends React.Component {
@@ -28,6 +31,9 @@ class App extends React.Component {
       <div className="App">
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/profile" component={ProfilePage} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/login" component={Login} />
           <Redirect to="/" />
         </Switch>
       </div>

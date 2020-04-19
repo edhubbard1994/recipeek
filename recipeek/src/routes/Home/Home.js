@@ -19,7 +19,7 @@ export default class Home extends Component {
               <div className={styles.search}>
                 <Searchbar
                   label = 'Find your feast...'
-                  onClick = {()=>{btnCallback(this.state.searchString);this.setState({searchString: ""})}}
+                  onClick = {() => {btnCallback(this.state.searchString);this.setState({searchString: ""})}}
                   searchInput = ''
                   onChange = { (e) => this.setState({searchString: e.target.value}) }
                 />
@@ -41,5 +41,3 @@ let btnCallback = async (inputText) => {
       .then(res => res.json())
       .then(recipes => console.log(recipes))
 }
-
-
