@@ -29,5 +29,9 @@ RUN if [ "$build_mode" = "migrate" ] ; then python manage.py makemigrations; pyt
 
 EXPOSE 8000
 
+ENV POSTGRES_USER="NONE"
+ENV POSTGRES_PASSWORD="NONE"
+ENV POSTGRES_HOST="NONE"
+
 ENTRYPOINT ["python","manage.py"]
 CMD [ "runserver","0.0.0.0:8000" ]

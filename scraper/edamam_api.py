@@ -1,12 +1,15 @@
 from scrape import Recipe, Ingredient, scrape_task
 import requests
 import time
+import os
 
-query_params1 = ['mediterranean','chinese','american','indian']
-query_params2 = ['healthy','vegan', 'chicken','rice','breakfast']
-query_params3 = ['lunch', 'dinner', 'snack', 'fruit','mexican'] 
-query_params4 = ['southern', 'comfort', 'steak', 'carribean', 'sides']
-query_params5 = ['soul','kosher','halal','vegetarian']
+
+query_params1 = ['fish','salmon','potato','cake']
+query_params2 = ['pie','goat', 'lamb','stew','bread']
+query_params3 = ['nut', 'spicy', 'sweet', 'bbq','pasta'] 
+query_params4 = ['italian', 'american', 'sushi', 'catfish', 'almond']
+query_params5 = ['peanut','ginger','garlic','pizza','corn']
+query_params6 = ['fried','baked','grilled','roasted','sandwich']
 
 def collect_ingredients(ingredients):
     acc = []
@@ -29,7 +32,9 @@ def collect_ingredients(ingredients):
 
 
 def edamam_api_call(query):
-    url = 'https://api.edamam.com/search?q=%s&app_id=84ccbee5&app_key=d8004719869b5827b1a5aa5b3256fdfc' % query
+    APP_ID = os.environ['EDAMAM_APP_ID']
+    API_KEY = os.environ['EDAMAM_API_KEY']
+    url = 'https://api.edamam.com/search?q=%s&app_id=%s&app_key=%s' % (query,APP_ID,API_KEY)
     r = requests.get(url)
     recipes = r.json()
     #print(recipes['hits'][0]['recipe'])
@@ -96,6 +101,14 @@ def collect_api_calls4():
 def collect_api_calls5():
     acc = []
     for query in query_params5:
+        acc.extend(edamam_api_call(query))
+        time.sleep(12)
+    return acc
+
+@scrape_task
+def collect_api_calls6():
+    acc = []
+    for query in query_params6:
         acc.extend(edamam_api_call(query))
         time.sleep(12)
     return acc

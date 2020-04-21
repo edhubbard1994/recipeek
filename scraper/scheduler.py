@@ -46,7 +46,7 @@ def docker_shutdown(a,b):
     sys.exit()
 
 def main():
-    schedule.every().day.at("04:00").do(run_tasks)
+    schedule.every().sunday.at("04:00").do(run_tasks)
     try:
         while True:
             schedule.run_pending()
