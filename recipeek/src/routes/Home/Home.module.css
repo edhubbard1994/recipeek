@@ -21,3 +21,22 @@ body {
   grid-area:  2 / 2 / 3 / 3;
   display: grid;
 }
+
+.results {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 15px;
+  grid-row-gap: 25px;
+  width: 80%;
+  margin-top: -10vw;
+}
+
+li {
+    list-style-type: none;
+}

@@ -28,11 +28,12 @@
    width: 100%;
    max-height: 12.8vw;
    border-radius: 5px 5px 0px 0px;
+   object-fit: cover;
  }
 
  .name {
    grid-area: 4 / 2 / 5 / 11;
-   font-size: 1.7vw;
+   font-size: 1.6vw;
    font-family: 'Montserrat', sans-serif;
    line-height: 1;
    padding-top: .3vw;

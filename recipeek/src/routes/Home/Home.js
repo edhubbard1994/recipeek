@@ -26,10 +26,11 @@ export default class Home extends Component {
         .then(res => res.json())
         .then(recipes => {this.setState({results: recipes}); console.log(recipes);})
   }
-  
+
 
     render() {
         return (
+          <div>
             <div className={styles.wrapper}>
               <div className={styles.header}>
                 <h1>Recipeek</h1>
@@ -42,19 +43,21 @@ export default class Home extends Component {
                   onChange = { (e) => this.setState({searchString: e.target.value}) }
                 />
               </div>
-              
-              <ul> {this.state.results.map(result =>
-                <SearchResultCard
-                  recipeImageURL={result.imageUrl}
-                  recipeURL={result.url}
-                  recipeName={result.name}
-                  calories={result.calories}
-                  diet={result.diets}
-                />
-              )}</ul>
-              
             </div>
+            <div className={styles.results}>
+              <ul> {this.state.results.map(result =>
+                <li>
+                  <SearchResultCard
+                    recipeImageURL={result.imageUrl}
+                    recipeURL={result.url}
+                    recipeName={result.name}
+                    calories={result.calories}
+                    diet={result.diets}
+                  />
+                </li>
+              )}</ul>
+            </div>
+          </div>
         );
     }
 }
-

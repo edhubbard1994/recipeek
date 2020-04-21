@@ -5,6 +5,17 @@ import styles from './SearchResultCard.module.css';
 const SearchResultCard = (props) => {
     let { recipeName, cuisine, diet, calories, recipeURL, recipeImageURL } = props;
 
+    let MAX_LENGTH = 35;
+
+    if (recipeName.length >= MAX_LENGTH) {
+      var name = recipeName.substr(0, MAX_LENGTH) + "\u2026";
+    }
+    else {
+      var name = recipeName;
+    }
+
+    var dietList = diet.replace("{", "").replace("}", "").split(",", 3);
+
     return (
       <div onClick={() => {window.open(recipeURL)}} className={styles.card}>
         <img
@@ -13,7 +24,7 @@ const SearchResultCard = (props) => {
           className={styles.recipeImage}
         />
         <h1 className={styles.name}>
-          {recipeName}
+          {name}
         </h1>
         <div className={styles.separator}/>
         <div className={styles.labelBoxCuisine}>
@@ -26,7 +37,7 @@ const SearchResultCard = (props) => {
           <h1 className={styles.label}>Diet</h1>
         </div>
         <h1 className={styles.dietText}>
-          {diet}
+          {dietList.join(", ")}
         </h1>
         <div className={styles.labelBoxCal}>
           <h1 className={styles.label}>Calories</h1>
