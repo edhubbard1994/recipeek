@@ -85,30 +85,20 @@ WSGI_APPLICATION = 'rpserver.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'oqniadrl',                      
-        'USER': 'oqniadrl',
-        'PASSWORD':'3Jy-Ucysf06f-JNCurJ02HYukF6pry_9',
-        'HOST': 'drona.db.elephantsql.com',
-        'PORT': '5432', 
-        'OPTIONS': {'sslmode': 'require'},
-    }
-}'''
+
 DATABASES = {
  'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sqsbntyl',                      
-        'USER': 'sqsbntyl',
-        'PASSWORD':'B38ttpBEVjSO8umM_98ssu4SLSpuQDQc',
-        'HOST': 'drona.db.elephantsql.com',
+        'NAME': os.environ['POSTGRES_USER'],                      
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD':os.environ['POSTGRES_PASSWORD'],
+        'HOST': os.environ['POSTGRES_HOST'],
         'PORT': '5432', 
         'OPTIONS': {'sslmode': 'require'},
     }
     
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
