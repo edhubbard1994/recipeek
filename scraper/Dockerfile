@@ -12,6 +12,9 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
+ENV EDAMAM_API_KEY="NONE"
+ENV EDAMAM_APP_ID="NONE"
+
 ENTRYPOINT [ "python" ]
 CMD [ "scheduler.py" ]
 
