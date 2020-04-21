@@ -9,7 +9,7 @@ body {
 	display: grid;
 	grid-gap: 10px;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 }
 
 .header {
@@ -20,6 +20,11 @@ body {
 .search {
   grid-area:  2 / 2 / 3 / 3;
   display: grid;
+}
+
+.button {
+  grid-area: 3 / 2 / 4 / 3;
+  margin-top: -19vw;
 }
 
 .results {
